@@ -1,0 +1,51 @@
+﻿@model FA.JustBlog.Core.Models.Posts
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+
+<div class="post-heading">
+    <h1>@Model.Title</h1>
+    <h2 class="subheading">@Model.ShortDescription</h2>
+    <span class="meta">
+        Posted by
+        on @Model.PostedOn.GetPrettyDate()
+    </span>
+</div>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                   @Model.PostContent
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- Comment Section -->
+<div class="mb-4">
+    <h2>Comments: </h2>
+    <!-- Divider-->
+    <hr class="my-4" />
+    @if (@Model.Comments.Count > 0)
+    {
+        @foreach (var item in @Model.Comments)
+        {
+            <div class="post-preview">
+                <h3 class="post-title">@item.CommentHeader</h3>
+                <p class="post-subtitle">@item.CommentText</p>
+                <p class="post-meta">
+                    Posted by <a href="#.">Anonymous</a> on @item.CommentTime.ToString("MMMM dd, yyyy")
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+        }
+    }
+    else
+    {
+        <p>There is no comment on this article yet, please be the first to leave a comment.</p>
+    }
+</div>
